@@ -3,6 +3,10 @@ from pydantic import BaseModel, EmailStr, field_validator
 from database import accounts_validators
 
 
+class MessageResponseSchema(BaseModel):
+    message: str
+    
+
 class UserRegistrationRequestSchema(BaseModel):
     email: EmailStr
     password: str
