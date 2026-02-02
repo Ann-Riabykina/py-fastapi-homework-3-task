@@ -37,6 +37,7 @@ from schemas.accounts import (
 
 router = APIRouter()
 
+
 def _as_utc(dt: datetime) -> datetime:
     if dt.tzinfo is None:
         return dt.replace(tzinfo=timezone.utc)
