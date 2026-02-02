@@ -11,98 +11,51 @@ class UserRegistrationRequestSchema(BaseModel):
     email: EmailStr
     password: str
 
-    @field_validator("email")
+    @field_validator("password")
     @classmethod
-    def validate_email(cls, v: EmailStr) -> str:
-        return accounts_validators.validate_email(str(v).lower())
+    def validate_password(cls, value: str) -> str:
+        return accounts_validators.validate_password_strength(value)
+
+
+    class UserRegistrationResponseSchema(BaseModel):
+        id: int
+        email: EmailStr
+
+
+    class UserActivationRequestSchema(BaseModel):
+        email: EmailStr
+        token: str
+
+
+    class PasswordResetRequestSchema(BaseModel):
+        email: EmailStr
+
+
+    class PasswordResetCompleteRequestSchema(BaseModel):
+        email: EmailStr
+        token: str
+        password: str
 
     @field_validator("password")
     @classmethod
-    def validate_password(cls, v: str) -> str:
-        return accounts_validators.validate_password_strength(v)
+    def validate_password(cls, value: str) -> str:
+        return accounts_validators.validate_password_strength(value)
 
 
-class UserRegistrationResponseSchema(BaseModel):
-    id: int
-    email: EmailStr
-
-
-class ActivateAccountRequestSchema(BaseModel):
-    email: EmailStr
-    token: str
-
-    @field_validator("email")
-    @classmethod
-    def validate_email(cls, v: EmailStr) -> str:
-        return accounts_validators.validate_email(str(v).lower())
-
-
-class ActivateAccountResponseSchema(BaseModel):
-    message: str
-
-
-class PasswordResetRequestSchema(BaseModel):
-    email: EmailStr
-
-    @field_validator("email")
-    @classmethod
-    def validate_email(cls, v: EmailStr) -> str:
-        return accounts_validators.validate_email(str(v).lower())
-
-
-class PasswordResetRequestResponseSchema(BaseModel):
-    message: str
-
-
-class PasswordResetCompleteRequestSchema(BaseModel):
-    email: EmailStr
-    token: str
-    password: str
-
-    @field_validator("email")
-    @classmethod
-    def validate_email(cls, v: EmailStr) -> str:
-        return accounts_validators.validate_email(str(v).lower())
-
-    @field_validator("password")
-    @classmethod
-    def validate_password(cls, v: str) -> str:
-        return accounts_validators.validate_password_strength(v)
-
-
-class PasswordResetCompleteResponseSchema(BaseModel):
-    message: str
-
-
-class LoginRequestSchema(BaseModel):
+class UserLoginRequestSchema(BaseModel):
     email: EmailStr
     password: str
 
-    @field_validator("email")
-    @classmethod
-    def validate_email(cls, v: EmailStr) -> str:
-        return accounts_validators.validate_email(str(v).lower())
 
-
-class LoginResponseSchema(BaseModel):
+class TokenPairResponseSchema(BaseModel):
     access_token: str
     refresh_token: str
-    token_type: str
+    token_type: str = "bearer"
 
 
-class RefreshAccessTokenRequestSchema(BaseModel):
+class TokenRefreshRequestSchema(BaseModel):
     refresh_token: str
 
 
-class RefreshAccessTokenResponseSchema(BaseModel):
+class TokenRefreshResponseSchema(BaseModel):
     access_token: str
-
-
-UserActivationRequestSchema = ActivateAccountRequestSchema
-UserActivationResponseSchema = ActivateAccountResponseSchema
-
-PasswordResetTokenRequestSchema = PasswordResetRequestSchema
-PasswordResetTokenResponseSchema = PasswordResetRequestResponseSchema
-
-UserLoginRequestSchema = LoginRequestSchema
-UserLoginResponseSchema = LoginResponseSchema
