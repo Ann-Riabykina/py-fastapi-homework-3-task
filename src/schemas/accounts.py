@@ -44,12 +44,12 @@ class PasswordResetCompleteRequestSchema(BaseModel):
         return value
 
 
-class LoginRequestSchema(BaseModel):
+class UserLoginRequestSchema(BaseModel):
     email: EmailStr
     password: str
 
 
-class LoginResponseSchema(BaseModel):
+class UserLoginResponseSchema(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
@@ -61,7 +61,3 @@ class TokenRefreshRequestSchema(BaseModel):
 
 class TokenRefreshResponseSchema(BaseModel):
     access_token: str
-
-
-LoginRequestSchema = UserLoginRequestSchema
-LoginResponseSchema = UserLoginResponseSchema
