@@ -61,3 +61,7 @@ class TokenRefreshRequestSchema(BaseModel):
 
 class TokenRefreshResponseSchema(BaseModel):
     access_token: str
+
+
+LoginRequestSchema = UserLoginRequestSchema
+LoginResponseSchema = UserLoginResponseSchema
