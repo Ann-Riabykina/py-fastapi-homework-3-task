@@ -3,10 +3,6 @@ from pydantic import BaseModel, EmailStr, field_validator
 from database.validators.accounts import validate_password_strength
 
 
-class MessageResponseSchema(BaseModel):
-    message: str
-
-
 class UserRegistrationRequestSchema(BaseModel):
     email: EmailStr
     password: str
@@ -23,13 +19,21 @@ class UserRegistrationResponseSchema(BaseModel):
     email: EmailStr
 
 
-class UserActivationRequestSchema(BaseModel):
+class ActivateAccountRequestSchema(BaseModel):
     email: EmailStr
     token: str
 
 
+class ActivateAccountResponseSchema(BaseModel):
+    message: str
+
+
 class PasswordResetRequestSchema(BaseModel):
     email: EmailStr
+
+
+class PasswordResetRequestResponseSchema(BaseModel):
+    message: str
 
 
 class PasswordResetCompleteRequestSchema(BaseModel):
@@ -44,20 +48,24 @@ class PasswordResetCompleteRequestSchema(BaseModel):
         return value
 
 
-class UserLoginRequestSchema(BaseModel):
+class PasswordResetCompleteResponseSchema(BaseModel):
+    message: str
+
+
+class LoginRequestSchema(BaseModel):
     email: EmailStr
     password: str
 
 
-class UserLoginResponseSchema(BaseModel):
+class LoginResponseSchema(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
 
 
-class TokenRefreshRequestSchema(BaseModel):
+class RefreshAccessTokenRequestSchema(BaseModel):
     refresh_token: str
 
 
-class TokenRefreshResponseSchema(BaseModel):
+class RefreshAccessTokenResponseSchema(BaseModel):
     access_token: str
