@@ -93,6 +93,7 @@ class RefreshAccessTokenRequestSchema(BaseModel):
 class RefreshAccessTokenResponseSchema(BaseModel):
     access_token: str
 
+
 UserActivationRequestSchema = ActivateAccountRequestSchema
 UserActivationResponseSchema = ActivateAccountResponseSchema
 
